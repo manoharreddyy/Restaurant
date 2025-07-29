@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delicious Bites - Menu</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+.menu-dropdown {
+  position: relative;
+  max-width: 400px;
+  margin: 1rem auto;
+  text-align: center;
+}
+#dropdownButton {
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+#dropdownButton:hover {
+  background-color: #ff4c4c;
+}
+.dropdown-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+.dropdown-list li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.dropdown-list li:hover {
+  background-color: #f0f0f0;
+}
+.dropdown-list.show {
+  max-height: 500px;
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <h1 class="logo">Delicious Bites</h1>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html" class="active">Menu</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Our Menu</h1>
+    <div class="menu-dropdown">
+      <button id="dropdownButton">Select Category ▾</button>
+      <ul id="dropdownList" class="dropdown-list hidden">
+        <li data-category="starters">Starters</li>
+        <li data-category="mains">Main Courses</li>
+        <li data-category="desserts">Desserts</li>
+      </ul>
+    </div>
+
+    <section id="starters" class="menu-section">
+      <h2>Starters</h2>
+      <ul>
+        <li><strong>Bruschetta</strong> - $6.99</li>
+        <li><strong>Caesar Salad</strong> - $7.99</li>
+        <li><strong>Garlic Bread</strong> - $5.99</li>
+        <li><strong>Tomato Soup</strong> - $6.49</li>
+      </ul>
+    </section>
+
+    <section id="mains" class="menu-section hidden">
+      <h2>Main Courses</h2>
+      <ul>
+        <li><strong>Grilled Salmon</strong> - $17.99</li>
+        <li><strong>Spaghetti Bolognese</strong> - $14.99</li>
+        <li><strong>Chicken Alfredo</strong> - $15.99</li>
+        <li><strong>Veggie Burger</strong> - $13.49</li>
+      </ul>
+    </section>
+
+    <section id="desserts" class="menu-section hidden">
+      <h2>Desserts</h2>
+      <ul>
+        <li><strong>Tiramisu</strong> - $6.49</li>
+        <li><strong>Chocolate Lava Cake</strong> - $6.99</li>
+        <li><strong>Cheesecake</strong> - $6.59</li>
+        <li><strong>Fruit Tart</strong> - $5.99</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Delicious Bites | All rights reserved</p>
+  </footer>
+
+  <script>
+  const dropdownButton = document.getElementById('dropdownButton');
+  const dropdownList = document.getElementById('dropdownList');
+  const sections = {
+    starters: document.getElementById('starters'),
+    mains: document.getElementById('mains'),
+    desserts: document.getElementById('desserts')
+  };
+
+  dropdownButton.addEventListener('click', () => {
+    dropdownList.classList.toggle('show');
+  });
+
+  dropdownList.querySelectorAll('li').forEach(item => {
+    item.addEventListener('click', () => {
+      dropdownList.classList.remove('show');
+      dropdownButton.textContent = item.textContent + ' ▾';
+      Object.keys(sections).forEach(key => {
+        sections[key].classList.add('hidden');
+      });
+      sections[item.dataset.category].classList.remove('hidden');
+    });
+  });
+</script>
+</body>
+</html>
